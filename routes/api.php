@@ -29,8 +29,11 @@ Route::post('/v1', function () {
 /*Route::get('/v1/users/{id?}/{code?}', function ($id=null, $code=null) {
     return 'users='.$id.'code='.$code;
 })->where(['id'=>'^.{36}$', 'code'=>'[0-9]+']);*/
-Route::prefix('/v1/products')->group(function() {
+/*Route::prefix('/v1/products')->group(function() {
     Route::get('/', 'Api\ProductsResource@index');
     Route::get('/{id?}/{code?}', 'Api\ProductsResource@show');
 
-});
+});*/
+/*Route::apiResource('/v1/products', 'Api\ProductsResource');
+Route::apiResource('/v1/orders', 'Api\OrdersResource');*/
+Route::apiResources(['/v1/orders'=> 'Api\OrdersResource', '/v1/products'=> 'Api\ProductsResource']);

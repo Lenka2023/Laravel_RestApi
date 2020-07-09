@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductsResource extends Controller
+class OrdersResource extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ProductsResource extends Controller
      */
     public function index()
     {
-       return  'index';
+        //
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductsResource extends Controller
      */
     public function show($id)
     {
-        return 'show'.$id;
+        //
     }
 
     /**
