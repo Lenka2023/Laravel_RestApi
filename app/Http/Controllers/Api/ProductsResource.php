@@ -28,15 +28,16 @@ class ProductsResource extends Controller
     { $result=false;
         if($request->has('uuid') & $request->has('name') & $request->has('price') & $request->has('comments')){
 
-        $result=DB::insert("INSERT INTO products(uuid, name, price, comments ) VALUES (uuid, name, price, comments)",
+        $result=DB::insert("INSERT INTO products (uuid, name, price, comments ) VALUES (:uuid, :name, :price, :comments)",
             [   'uuid'=>$request->input('uuid'),
                 'name'=>$request->input('name'),
                 'price'=>$request->input('price'),
                 'comments'=>$request->input('comments')
             ]);
+
     }
 
-       return  json_encode($result);
+       return  json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -60,7 +61,7 @@ class ProductsResource extends Controller
      */
     public function update(Request $request, $id)
     {
-        $result=DB::update("UPDATE products SET uuid = :uuid,name= :name, price=:price,comments= :comments WHERE id= :id",
+        $result=DB::update("UPDATE products SET uuid = :uuid, name= :name, price=:price, comments= :comments WHERE id= :id",
         [
             'id'=>$id,
             'uuid'=>$request->input('uuid'),
