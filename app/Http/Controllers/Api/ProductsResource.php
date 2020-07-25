@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Product;
 use Illuminate\Http\Request;
-use DB;
-class ProductsResource extends Controller
+//use DB;
+class ProductsResource
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,10 @@ class ProductsResource extends Controller
      */
     public function index()
     {
-       $products=DB::select("select * from products");
-       return json_encode($products, JSON_UNESCAPED_UNICODE);
+      /*$products=DB::select("select * from products");
+       return json_encode($products, JSON_UNESCAPED_UNICODE);*/
+        $products=Product::all();
+        return $products->toJson();
     }
 
     /**
@@ -36,7 +39,6 @@ class ProductsResource extends Controller
             ]);
 
     }
-
        return  json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 

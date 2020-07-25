@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                        1С REST API
+                    {{$tittle}}
                 </div>
 
                 <div class="links">

@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/.env" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Api/ProductsResource.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/Http/Controllers/Api/ProductsSesource.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Product.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_07_09_174016_create_products_table.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/database/migrations/2020_07_09_180642_change_product_table_1.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/welcome.blade.php" charset="UTF-8" />
