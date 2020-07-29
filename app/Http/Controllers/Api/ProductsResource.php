@@ -28,7 +28,7 @@ class ProductsResource
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { $result=false;
+    { /*$result=false;
         if($request->has('uuid') & $request->has('name') & $request->has('price') & $request->has('comments')){
 
         $result=DB::insert("INSERT INTO products (uuid, name, price, comments ) VALUES (:uuid, :name, :price, :comments)",
@@ -39,7 +39,24 @@ class ProductsResource
             ]);
 
     }
-       return  json_encode($result, JSON_UNESCAPED_UNICODE);
+       return  json_encode($result, JSON_UNESCAPED_UNICODE);*/
+        if($request->has('uuid')){
+            $uuid=$request->input('uuid');
+            $product=Product::find($uuid);
+            if(!is_null($product)){
+                return json_encode(['error'=>'Продукт с данным uuid уже существует'], JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                $product=new Product;
+                $product->uuid=$uuid;
+                $product->name=$request->input('name');
+                $product->price=$request->input('price');
+                $product->comments=$request->input('comments');
+                $product->save();
+                return json_encode(['response'=>'Добавляем товар с uuid='.$uuid], JSON_UNESCAPED_UNICODE);
+            }
+        }
+        return json_encode(['error'=>' uuid не передан'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -50,8 +67,10 @@ class ProductsResource
      */
     public function show($id)
     {
-        $products=DB::select("select * from products where id = :id", ['id'=>$id]);
-        return json_encode($products, JSON_UNESCAPED_UNICODE);
+        /*$products=DB::select("select * from products where id = :id", ['id'=>$id]);
+        return json_encode($products, JSON_UNESCAPED_UNICODE);*/
+        $products=Product::where('uuid','like', $id)->get();
+        return $products->toJson(JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -63,7 +82,7 @@ class ProductsResource
      */
     public function update(Request $request, $id)
     {
-        $result=DB::update("UPDATE products SET uuid = :uuid, name= :name, price=:price, comments= :comments WHERE id= :id",
+       /* $result=DB::update("UPDATE products SET uuid = :uuid, name= :name, price=:price, comments= :comments WHERE id= :id",
         [
             'id'=>$id,
             'uuid'=>$request->input('uuid'),
@@ -71,7 +90,24 @@ class ProductsResource
             'price'=>$request->input('price'),
             'comments'=>$request->input('comments')
         ]);
-        return json_encode($result, JSON_UNESCAPED_UNICODE);
+        return json_encode($result, JSON_UNESCAPED_UNICODE);*/
+        if($request->has('uuid')){
+            $uuid=$request->input('uuid');
+            $product=Product::find($uuid);
+            if(is_null($product)){
+                return json_encode(['error'=>'Продукт с данным uuid не найден'], JSON_UNESCAPED_UNICODE);
+            }
+            else{
+              //  $product=new Product;
+                $product->uuid=$uuid;
+                $product->name = $request->input('name');
+                $product->price=$request->input('price');
+                $product->comments=$request->input('comments');
+                $product->save();
+                return json_encode(['response'=>'Обновлён товар с uuid='.$uuid], JSON_UNESCAPED_UNICODE);
+            }
+        }
+        return json_encode(['error'=>' uuid не передан'], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -80,9 +116,11 @@ class ProductsResource
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $result=DB::delete("DELETE FROM products WHERE id=:id", [ 'id'=>$id]);
-        return json_encode($result, JSON_UNESCAPED_UNICODE);
+        /*$result=DB::delete("DELETE FROM products WHERE id=:id", [ 'id'=>$id]);
+        return json_encode($result, JSON_UNESCAPED_UNICODE);*/
+        $product=Product::destroy($uuid);
+        return json_encode(['response'=>' Товар с uuid='.$uuid.'удалён из базы'], JSON_UNESCAPED_UNICODE);
     }
 }

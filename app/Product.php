@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+
     protected $table ='products';
-    protected $primaryKey=false;
-    protected $timestamp=false;
+    protected $primaryKey = 'uuid';
+    public $incrementing = false;
+   public $timestamps=false;
 }
